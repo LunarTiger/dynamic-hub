@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/LunarTiger/AltspaceVR#readme",
   "dependencies": {
+    "md5": "^2.2.1",
     "socket.io": "^2.0.4"
   }
 }
