@@ -11,7 +11,13 @@ var Server = function(){
 Server.prototype = {
     default_portals:{
         portals:[],
-        children:[],
+        children:[
+            {
+                portals:[],
+                children:[],
+                user:"shane"
+            }
+        ],
         user:"lunartiger"
     },
     findPortalRoom:function(username,callback,parent){

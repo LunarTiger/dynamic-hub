@@ -1,5 +1,11 @@
 {
   "portals":[],
-  "children":[],
+  "children":[
+    {
+      "portals":[],
+      "children":[],
+      "user":"shane"
+    }
+  ],
   "user":"lunartiger"
 }
