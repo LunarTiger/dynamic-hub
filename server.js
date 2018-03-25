@@ -2,7 +2,7 @@ var io = require('socket.io');
 var fs = require('fs');
 var md5 = require('md5');
 var https = require('https');
-var config = require('config');
+var config = require('./config');
 var Server = function(){
     this.setupWebSocket();
     this.loadUsers();

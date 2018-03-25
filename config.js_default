@@ -1,7 +1,7 @@
 var settings = {
     ssl:{
-        key:"",
-        cert:""
+        key:__dirname+"/ssl/47533868_shanesedit.org.key",
+        cert:_dirname+"/ssl/47533868_shanesedit.org.cert"
     }
-}
+};
 module.exports = settings;
