@@ -101,6 +101,7 @@ Server.prototype = {
         this.savePortals();
     },
     removePortal:function(msg,portal_room){
+        console.log(msg,portal_room);
         portal_room.children.splice(msg.portalNumber,1);
         this.savePortals();
     },
