@@ -70,6 +70,7 @@ Server.prototype = {
                     });
             });
             socket.on('add-user',function (msg) {
+                console.log(msg);
                 _this.authenticate(msg,true)
                     .then(_this.addUser.bind(_this, msg));
             });
