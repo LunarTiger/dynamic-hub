@@ -42,12 +42,6 @@ Server.prototype = {
             }
         });
     },
-    reloadSockets:function(socket){
-        return Promise.resolve()
-            .then(function(){
-                socket.broadcast.emit('update-portals',msg.username)
-            })
-    },
     setupWebSocket:function(){
         var _this = this;
         var options = {
@@ -63,7 +57,9 @@ Server.prototype = {
             socket.on('add-portal',function (msg) {
                 _this.authenticate(msg)
                     .then(_this.addPortal.bind(_this, msg))
-                    .then(_this.reloadSockets.bind(_this))
+                    .then(function(){
+                        socket.broadcast.emit('update-portals',msg.username)
+                    })
                     .catch(function(error){
                         socket.emit('error',error);
                     });
@@ -71,7 +67,9 @@ Server.prototype = {
             socket.on('remove-portal',function (msg) {
                 _this.authenticate(msg)
                     .then(_this.removePortal.bind(_this, msg))
-                    .then(_this.reloadSockets.bind(_this))
+                    .then(function(){
+                        socket.broadcast.emit('update-portals',msg.username)
+                    })
                     .catch(function(error){
                         socket.emit('error',error);
                     });
