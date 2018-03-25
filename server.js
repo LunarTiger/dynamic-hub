@@ -94,10 +94,9 @@ Server.prototype = {
     },
     addPortal:function(msg,portal_room){
         portal_room.children.push({
-            name:msg.room.name,
-            space_id:msg.room.space_id,
-            image:msg.room.image,
-            show_name:!!msg.show_name
+            name:msg.portalName,
+            space_id:msg.portalSpaceId,
+            image:msg.portalImage
         });
         this.savePortals();
     },
