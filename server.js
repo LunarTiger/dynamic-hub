@@ -96,13 +96,11 @@ Server.prototype = {
     },
     addUser:function(msg){
         this.users.push(msg.user);
-        console.log(this.users);
         this.portals.children.push({
             portals:[],
             children:[],
             user:msg.user.username
         });
-        console.log(this.portals);
         this.saveUsers();
         this.savePortals();
     },
