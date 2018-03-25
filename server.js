@@ -17,6 +17,9 @@ Server.prototype = {
     findPortalRoom:function(username,callback,parent){
         var _this = this;
         parent = parent || this.portals;
+        if(parent.user===username){
+            return callback(parent);
+        }
         parent.children.every(function(child){
             if(child.user === username){
                 callback(child);
@@ -30,7 +33,7 @@ Server.prototype = {
         var _this = this;
         return new Promise(function(resolve){
             var user = _this.users.filter(function(user){
-                return (is_only_lunar?'lunartiger':user.username) === msg.username && user.password === md5(msg.username+msg.password+"lunars-boobs");
+                return (is_only_lunar?'lunartiger':user.username) === msg.username && user.password === md5((is_only_lunar?'lunartiger':user.username)+msg.password+"lunars-boobs");
             });
             if(user.length){
                 user = user[0];
