@@ -30,7 +30,7 @@ Server.prototype = {
         var _this = this;
         return new Promise(function(resolve){
             var user = _this.users.filter(function(user){
-                return user.username === is_only_lunar?'lunartiger':msg.username && user.password === md5(msg.username+msg.password+"lunars-boobs");
+                return (is_only_lunar?'lunartiger':user.username) === msg.username && user.password === md5(msg.username+msg.password+"lunars-boobs");
             });
             if(user.length){
                 user = user[0];
