@@ -47,9 +47,6 @@ Server.prototype = {
             .then(function(){
                 socket.broadcast.emit('update-portals',msg.username)
             })
-            .catch(function(error){
-                socket.emit('error',error);
-            })
     },
     setupWebSocket:function(){
         var _this = this;
@@ -66,12 +63,18 @@ Server.prototype = {
             socket.on('add-portal',function (msg) {
                 _this.authenticate(msg)
                     .then(_this.addPortal.bind(_this, msg))
-                    .then(_this.reloadSockets.bind(_this));
+                    .then(_this.reloadSockets.bind(_this))
+                    .catch(function(error){
+                        socket.emit('error',error);
+                    });
             });
             socket.on('remove-portal',function (msg) {
                 _this.authenticate(msg)
                     .then(_this.removePortal.bind(_this, msg))
-                    .then(_this.reloadSockets.bind(_this));
+                    .then(_this.reloadSockets.bind(_this))
+                    .catch(function(error){
+                        socket.emit('error',error);
+                    });
             });
         });
         this.socket.listen(app);
