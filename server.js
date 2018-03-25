@@ -56,7 +56,7 @@ Server.prototype = {
         this.socket = io({ origins: '*:*'});
         this.socket.on('connection', function(socket){
             socket.on('portals',function () {
-                socket.emit('portals',this.portals);
+                socket.emit('portals',_this.portals);
             });
             socket.on('md5',function (msg) {
                 socket.emit('md5',JSON.stringify({username:msg.username,password:md5(msg.username+msg.password+"lunars-boobs")}));
