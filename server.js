@@ -93,7 +93,7 @@ Server.prototype = {
         }
     },
     addPortal:function(msg,portal_room){
-        portal_room.children.push({
+        portal_room.portals.push({
             name:msg.portalName,
             space_id:msg.portalSpaceId,
             image:msg.portalImage
