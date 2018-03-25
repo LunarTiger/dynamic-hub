@@ -11,13 +11,7 @@ var Server = function(){
 Server.prototype = {
     default_portals:{
         portals:[],
-        children:[
-            {
-                portals:[],
-                children:[],
-                user:"shane"
-            }
-        ],
+        children:[],
         user:"lunartiger"
     },
     findPortalRoom:function(username,callback,parent){
@@ -32,11 +26,11 @@ Server.prototype = {
             }
         });
     },
-    authenticate:function(msg){
+    authenticate:function(msg,is_only_lunar){
         var _this = this;
         return new Promise(function(resolve){
             var user = _this.users.filter(function(user){
-                return user.username === msg.username && user.password === md5(msg.username+msg.password+"lunars-boobs");
+                return user.username === is_only_lunar?'lunartiger':msg.username && user.password === md5(msg.username+msg.password+"lunars-boobs");
             });
             if(user.length){
                 user = user[0];
@@ -75,6 +69,10 @@ Server.prototype = {
                         socket.broadcast.emit('update-portals',msg.username)
                     });
             });
+            socket.on('add-user',function (msg) {
+                _this.authenticate(msg,true)
+                    .then(_this.addUser.bind(_this, msg));
+            });
         });
         this.socket.listen(app);
         app.listen(8008);
@@ -84,6 +82,16 @@ Server.prototype = {
     },
     loadUsers:function(){
         this.users = this.loadJSON('users.json',[]);
+    },
+    addUser:function(msg){
+        this.users.push(msg.user);
+        this.portals.children.push({
+                portals:[],
+                children:[],
+                user:msg.user.username
+            });
+        this.saveUsers();
+        this.savePortals();
     },
     loadJSON:function(file,default_value){
         try{
@@ -104,8 +112,14 @@ Server.prototype = {
         portal_room.portals.splice(msg.portalNumber,1);
         this.savePortals();
     },
+    saveUsers:function(){
+        this.saveFile('users.json',this.users||[])
+    },
     savePortals:function(){
-        fs.writeFileSync(__dirname+'/layout.json',JSON.stringify(this.portals||this.default_portals,null,4));
+        this.saveFile('layout.json',this.portals||this.default_portals)
+    },
+    saveFile:function(filename,data){
+        fs.writeFileSync(__dirname+'/'+filename,JSON.stringify(data,null,4));
     }
 };
 new Server();
