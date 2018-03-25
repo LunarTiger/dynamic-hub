@@ -52,7 +52,7 @@ Server.prototype = {
             socket.on('portals',function () {
                 socket.emit('portals',this.portals);
             });
-            socket.on('md5',function () {
+            socket.on('md5',function (msg) {
                 socket.emit('md5',JSON.stringify({username:msg.username,password:md5(msg.username+msg.password+"lunars-boobs")}));
             });
             socket.on('add-portal',function (msg) {
