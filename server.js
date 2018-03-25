@@ -52,6 +52,9 @@ Server.prototype = {
             socket.on('portals',function () {
                 socket.emit('portals',this.portals);
             });
+            socket.on('md5',function () {
+                socket.emit('md5',JSON.stringify({username:msg.username,password:md5(msg.username+msg.password+"lunars-boobs")}));
+            });
             socket.on('add-portal',function (msg) {
                 _this.authenticate(msg)
                     .then(_this.addPortal.bind(_this, msg))
