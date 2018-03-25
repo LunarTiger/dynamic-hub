@@ -28,7 +28,7 @@ Server.prototype = {
     },
     authenticate:function(msg){
         var _this = this;
-        return new Promise(function(resolve,reject){
+        return new Promise(function(resolve){
             var user = _this.users.filter(function(user){
                 return user.username === msg.username && user.password === md5(msg.username+msg.password+"lunars-boobs");
             });
@@ -37,8 +37,6 @@ Server.prototype = {
                 _this.findPortalRoom(user.username,function(room){
                     resolve(room);
                 });
-            }else{
-                reject(new Error('Incorrect login!'));
             }
         });
     },
@@ -59,9 +57,6 @@ Server.prototype = {
                     .then(_this.addPortal.bind(_this, msg))
                     .then(function(){
                         socket.broadcast.emit('update-portals',msg.username)
-                    })
-                    .catch(function(error){
-                        socket.emit('error',error);
                     });
             });
             socket.on('remove-portal',function (msg) {
@@ -69,9 +64,6 @@ Server.prototype = {
                     .then(_this.removePortal.bind(_this, msg))
                     .then(function(){
                         socket.broadcast.emit('update-portals',msg.username)
-                    })
-                    .catch(function(error){
-                        socket.emit('error',error);
                     });
             });
         });
