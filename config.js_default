@@ -1,0 +1,7 @@
+var settings = {
+    ssl:{
+        key:"",
+        cert:""
+    }
+}
+module.exports = settings;

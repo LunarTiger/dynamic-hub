@@ -1,6 +1,8 @@
 var io = require('socket.io');
 var fs = require('fs');
 var md5 = require('md5');
+var https = require('https');
+var config = require('config');
 var Server = function(){
     this.setupWebSocket();
     this.loadUsers();
@@ -51,7 +53,12 @@ Server.prototype = {
     },
     setupWebSocket:function(){
         var _this = this;
-        this.socket = io();
+        var options = {
+            key: fs.readFileSync(config.ssl.key),
+            cert: fs.readFileSync(config.ssl.cert)
+        };
+        var app = https.createServer(options);
+        this.socket = io({ origins: '*:*'});
         this.socket.on('connection', function(socket){
             socket.on('portals',function () {
                 socket.emit('portals',this.portals);
@@ -67,7 +74,8 @@ Server.prototype = {
                     .then(_this.reloadSockets.bind(_this));
             });
         });
-        this.socket.listen(8008);
+        this.socket.listen(app);
+        app.listen(8008);
     },
     loadPortals:function(){
         this.portals = this.loadJSON('layout.json',this.default_portals);
