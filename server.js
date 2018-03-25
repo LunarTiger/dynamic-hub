@@ -84,22 +84,24 @@ Server.prototype = {
     loadUsers:function(){
         this.users = this.loadJSON('users.json',[]);
     },
-    addUser:function(msg){
-        this.users.push(msg.user);
-        this.portals.children.push({
-                portals:[],
-                children:[],
-                user:msg.user.username
-            });
-        this.saveUsers();
-        this.savePortals();
-    },
     loadJSON:function(file,default_value){
         try{
             return JSON.parse(fs.readFileSync(__dirname+'/'+file,'utf8'));
         }catch(e){
             return default_value;
         }
+    },
+    addUser:function(msg){
+        this.users.push(msg.user);
+        console.log(this.users);
+        this.portals.children.push({
+            portals:[],
+            children:[],
+            user:msg.user.username
+        });
+        console.log(this.portals);
+        this.saveUsers();
+        this.savePortals();
     },
     addPortal:function(msg,portal_room){
         portal_room.portals.push({
