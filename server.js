@@ -111,6 +111,7 @@ Server.prototype = {
             image:msg.portalImage,
             rim_color:msg.rimColor,
             back_color:msg.backColor,
+            sky_color:msg.skyColor,
             hidden_on_mobile:msg.hiddenOnMobile,
             dizzyness_disclaimer:msg.dizzyNessDisclaimer
         });
