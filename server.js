@@ -105,6 +105,7 @@ Server.prototype = {
         this.savePortals();
     },
     addPortal:function(msg,portal_room){
+        console.log(msg);
         portal_room.portals.push({
             name:msg.portalName,
             space_id:msg.portalSpaceId,
