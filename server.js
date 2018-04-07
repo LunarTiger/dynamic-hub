@@ -108,7 +108,11 @@ Server.prototype = {
         portal_room.portals.push({
             name:msg.portalName,
             space_id:msg.portalSpaceId,
-            image:msg.portalImage
+            image:msg.portalImage,
+            rim_color:msg.rimColor,
+            back_color:msg.backColor,
+            hidden_on_mobile:msg.hiddenOnMobile,
+            only_on_mobile:msg.onlyOnMobile
         });
         this.savePortals();
     },
