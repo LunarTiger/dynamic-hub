@@ -113,7 +113,7 @@ Server.prototype = {
             rim_color:msg.rimColor,
             back_color:msg.backColor,
             hidden_on_mobile:msg.hiddenOnMobile,
-            only_on_mobile:msg.onlyOnMobile
+            dizzyness_disclaimer:msg.dizzyNessDisclaimer
         });
         this.savePortals();
     },
